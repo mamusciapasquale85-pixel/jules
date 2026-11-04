@@ -1,0 +1,11 @@
+{
+  "name": "Jules",
+  "short_name": "Jules",
+  "description": "Suivi des compétences comportementales",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F6F4EF",
+  "theme_color": "#1C2B45",
+  "lang": "fr",
+  "icons": []
+}
