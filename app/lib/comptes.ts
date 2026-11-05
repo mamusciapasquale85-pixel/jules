@@ -27,14 +27,14 @@ export type ResultatCompte =
   | { ok: false; erreur: string };
 
 /**
- * Crée un compte de connexion et sa fiche adulte (prof ou éducateur).
+ * Crée un compte de connexion et sa fiche adulte (prof, éducateur ou direction = admin seul).
  * Les droits de l'appelant doivent être vérifiés AVANT : ce code utilise la clé service.
  */
 export async function creerCompteAdulte(params: {
   prenom: string;
   nom: string;
   email: string;
-  role: "prof" | "educateur";
+  role: "prof" | "educateur" | "admin";
   classeIds: string[];
 }): Promise<ResultatCompte> {
   const { prenom, nom, email, role } = params;

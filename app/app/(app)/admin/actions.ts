@@ -70,3 +70,26 @@ export async function refuserDemande(_prev: EtatDecision, formData: FormData): P
   revalidatePath("/admin");
   return { info: "Demande refusée." };
 }
+
+/** Donne ou retire le rôle admin à un adulte. Le RLS (adultes_admin) vérifie aussi les droits. */
+export async function changerAccesAdmin(_prev: EtatDecision, formData: FormData): Promise<EtatDecision> {
+  const profil = await adminConnecte();
+  if (!profil) return { erreur: "Non autorisé." };
+
+  const id = String(formData.get("id") ?? "");
+  const donner = formData.get("action") === "donner";
+  if (!donner && id === profil.id) return { erreur: "Tu ne peux pas retirer ton propre accès admin." };
+
+  const supabase = await createClient();
+  const { data: adulte } = await supabase.from("adultes").select("id, prenom, roles, actif").eq("id", id).maybeSingle();
+  if (!adulte) return { erreur: "Compte introuvable." };
+
+  const roles = (adulte.roles as string[]).filter((r) => r !== "admin");
+  if (donner) roles.push("admin");
+  if (roles.length === 0) return { erreur: "Ce compte n’aurait plus aucun rôle. Désactive-le plutôt." };
+
+  const { error } = await supabase.from("adultes").update({ roles }).eq("id", id);
+  if (error) return { erreur: "Modification refusée. Réessaie." };
+  revalidatePath("/admin");
+  return { info: donner ? `${adulte.prenom} est maintenant admin.` : `${adulte.prenom} n’est plus admin.` };
+}

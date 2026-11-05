@@ -36,6 +36,7 @@ export default function FormulaireAdulte({ classes }: { classes: ClasseCourte[] 
         <select className="champ" name="role" value={role} onChange={(e) => setRole(e.target.value)}>
           <option value="prof">Prof</option>
           <option value="educateur">Éducateur</option>
+          <option value="admin">Direction (accès admin)</option>
         </select>
       </label>
       {role === "prof" && classes.length > 0 && (

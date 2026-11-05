@@ -72,9 +72,9 @@ export async function creerProfilAdulte(_prev: EtatProfilAdulte, formData: FormD
   if (!prenom || !nom) return { erreur: "Indique le prénom et le nom." };
   if (prenom.length > 80 || nom.length > 80) return { erreur: "Prénom ou nom trop long." };
   if (!EMAIL_VALIDE.test(email) || email.length > 254) return { erreur: "Adresse e-mail invalide." };
-  if (role !== "prof" && role !== "educateur") return { erreur: "Choisis un rôle." };
+  if (role !== "prof" && role !== "educateur" && role !== "admin") return { erreur: "Choisis un rôle." };
 
-  // Un éducateur lit tous les élèves : seul un admin peut ouvrir ce type de compte.
+  // Un éducateur ou un admin lit tous les élèves : seul un admin peut ouvrir ces comptes.
   const profil = await getProfil();
   if (!profil || profil.kind !== "adulte" || !profil.roles.includes("admin")) {
     return { erreur: "Non autorisé." };
