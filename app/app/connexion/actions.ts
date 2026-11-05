@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { EMAIL_VALIDE, origineSite } from "@/lib/comptes";
+import { confirmerDemande, prevenirAdminsDemande } from "@/lib/mail";
 import { createClient } from "@/lib/supabase/server";
 
 export type EtatConnexion = { erreur?: string };
@@ -61,7 +62,13 @@ export async function demanderCompte(_prev: EtatDemande, formData: FormData): Pr
 
   const admin = createAdminClient();
   const { error } = await admin.from("demandes_compte").insert({ prenom, nom, email, role, message: message || null });
-  // Une demande déjà en attente pour cette adresse : même réponse, rien à faire.
-  if (error && error.code !== "23505") return { erreur: "Envoi impossible. Réessaie plus tard." };
+  // Une demande déjà en attente pour cette adresse : même réponse, et pas de nouveau mail.
+  if (error?.code === "23505") return { envoyee: true };
+  if (error) return { erreur: "Envoi impossible. Réessaie plus tard." };
+
+  await Promise.all([
+    prevenirAdminsDemande({ prenom, nom, email, role, message: message || null }),
+    confirmerDemande({ prenom, email }),
+  ]);
   return { envoyee: true };
 }

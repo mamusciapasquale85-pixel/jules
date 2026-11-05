@@ -19,7 +19,7 @@ export default function PageDemande() {
       {etat.envoyee ? (
         <div className="contenu" style={{ gap: 16 }}>
           <p className="succes" role="status">
-            Demande envoyée. Quand elle sera acceptée, tu recevras un e-mail pour choisir ton mot de passe.
+            Demande envoyée. Tu vas recevoir un e-mail de confirmation, puis un second e-mail pour choisir ton mot de passe quand la demande sera acceptée.
             Pense à regarder dans les indésirables.
           </p>
           <Link className="bouton bouton-secondaire bouton-grand" href="/connexion">Retour à la connexion</Link>
