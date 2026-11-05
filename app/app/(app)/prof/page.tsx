@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getProfil } from "@/lib/profil";
 import { deconnexion } from "@/app/connexion/actions";
+import { Marque } from "@/components/marque";
 
 function initiales(prenom: string, nom: string) {
   return `${prenom[0] ?? ""}${nom[0] ?? ""}`.toUpperCase();
@@ -40,7 +41,7 @@ export default async function PageMaClasse({
     return (
       <main className="ecran">
         <header className="entete">
-          <span className="marque">Jules</span>
+          <Marque />
           <h1 style={{ fontSize: 24 }}>Aucune classe</h1>
           <span className="sous">Demande à l’éducateur de te rattacher à tes classes.</span>
         </header>
@@ -80,7 +81,7 @@ export default async function PageMaClasse({
     <main className="ecran">
       <header className="entete">
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <span className="marque">Jules</span>
+          <Marque />
           <span className="sous">{profil.prenom} {profil.nom}</span>
         </div>
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between" }}>

@@ -84,8 +84,8 @@ export default function FormulaireObservation({
           onChange={(e) => setRecherche(e.target.value)}
         />
         {choisi && (
-          <div className="carte" style={{ borderColor: "var(--bleu-fonce)", borderWidth: 2 }}>
-            <span className="sourdine" style={{ fontSize: 12 }}><strong>{choisi.code}</strong> · {choisi.competence}</span>
+          <div className="carte" style={{ borderColor: "var(--teal)", borderWidth: 2 }}>
+            <span className="sourdine" style={{ fontSize: 12 }}><span className="point-domaine" data-domaine={choisi.code[0]} aria-hidden="true" /><strong>{choisi.code}</strong> · {choisi.competence}</span>
             <div style={{ fontWeight: 700, fontSize: 14 }}>{choisi.libelle}</div>
             {choisi.grave && sens === "a_ameliorer" && (
               <span className="pastille pastille-neg" style={{ marginTop: 6, display: "inline-block" }}>Fait grave · parents prévenus immédiatement</span>
@@ -102,7 +102,7 @@ export default function FormulaireObservation({
               onClick={() => setComportementId(c.id)}
             >
               <span style={{ display: "flex", flexDirection: "column", gap: 2, flex: 1, minWidth: 0 }}>
-                <span className="sourdine" style={{ fontSize: 12 }}><strong>{c.code}</strong> · {c.competence}</span>
+                <span className="sourdine" style={{ fontSize: 12 }}><span className="point-domaine" data-domaine={c.code[0]} aria-hidden="true" /><strong>{c.code}</strong> · {c.competence}</span>
                 <span style={{ fontSize: 14, fontWeight: 700 }}>{c.libelle}</span>
               </span>
             </button>

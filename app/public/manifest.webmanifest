@@ -4,8 +4,8 @@
   "description": "Suivi des compétences comportementales",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#F6F4EF",
-  "theme_color": "#1C2B45",
+  "background_color": "#F2F8F7",
+  "theme_color": "#1D2C4D",
   "lang": "fr",
   "icons": []
 }

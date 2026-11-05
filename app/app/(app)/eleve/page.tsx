@@ -1,10 +1,11 @@
 import { deconnexion } from "@/app/connexion/actions";
+import { Marque } from "@/components/marque";
 
 export default function Page() {
   return (
     <main className="ecran">
       <header className="entete">
-        <span className="marque">Jules</span>
+        <Marque />
         <h1 style={{ fontSize: 24 }}>Mon espace</h1>
         <span className="sous">Écran en construction</span>
       </header>

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Marque } from "@/components/marque";
 
 export default function PageConnexionEleve() {
   const router = useRouter();
@@ -32,7 +33,7 @@ export default function PageConnexionEleve() {
   return (
     <main className="ecran">
       <header className="entete" style={{ paddingBottom: 24 }}>
-        <span className="marque">Jules</span>
+        <Marque />
         <h1 style={{ fontSize: 26 }}>Mon code</h1>
         <span className="sous">Le code de 8 caractères remis par ton éducateur ou ton éducatrice</span>
       </header>

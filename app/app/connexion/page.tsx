@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useActionState } from "react";
 import { connexionAdulte, type EtatConnexion } from "./actions";
+import { Marque } from "@/components/marque";
 
 export default function PageConnexion() {
   const [etat, action, enCours] = useActionState<EtatConnexion, FormData>(connexionAdulte, {});
@@ -10,7 +11,7 @@ export default function PageConnexion() {
   return (
     <main className="ecran">
       <header className="entete" style={{ paddingBottom: 24 }}>
-        <span className="marque">Jules</span>
+        <Marque />
         <h1 style={{ fontSize: 26 }}>Connexion</h1>
         <span className="sous">Profs, éducateurs et parents</span>
       </header>
