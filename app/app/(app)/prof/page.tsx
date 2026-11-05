@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getProfil } from "@/lib/profil";
-import { deconnexion } from "@/app/connexion/actions";
+import { PiedCompte } from "@/components/pied-compte";
 import { Marque } from "@/components/marque";
 import { OngletsProf } from "@/components/onglets-prof";
 
@@ -48,7 +48,7 @@ export default async function PageMaClasse({
         </header>
         <OngletsProf actif="classe" />
         <div className="contenu">
-          <form action={deconnexion}><button className="bouton bouton-secondaire">Se déconnecter</button></form>
+          <PiedCompte />
         </div>
       </main>
     );
@@ -139,9 +139,7 @@ export default async function PageMaClasse({
           );
         })}
 
-        <form action={deconnexion} style={{ marginTop: 16 }}>
-          <button className="bouton bouton-secondaire" style={{ height: 40, fontSize: 14 }}>Se déconnecter</button>
-        </form>
+        <PiedCompte />
       </div>
     </main>
   );

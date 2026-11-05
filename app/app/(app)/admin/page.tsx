@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getProfil } from "@/lib/profil";
-import { deconnexion } from "@/app/connexion/actions";
+import { PiedCompte } from "@/components/pied-compte";
 import { Marque } from "@/components/marque";
 import FormulaireAdulte from "../prof/profil/formulaire-adulte";
 
@@ -25,7 +25,7 @@ export default async function PageAdmin() {
         {profil.roles.includes("prof") && (
           <Link className="bouton bouton-secondaire" href="/prof">Retour à mes classes</Link>
         )}
-        <form action={deconnexion}><button className="bouton bouton-secondaire">Se déconnecter</button></form>
+        <PiedCompte />
       </div>
     </main>
   );

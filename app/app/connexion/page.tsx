@@ -29,6 +29,9 @@ export default function PageConnexion() {
         <button className="bouton bouton-grand" type="submit" disabled={enCours}>
           {enCours ? "Connexion…" : "Se connecter"}
         </button>
+        <Link href="/connexion/oubli" style={{ textAlign: "center", fontSize: 14, color: "var(--teal-fonce)" }}>
+          Mot de passe oublié ?
+        </Link>
 
         <div style={{ borderTop: "1px solid var(--bord)", paddingTop: 16, marginTop: 8 }}>
           <Link href="/connexion/eleve" className="bouton bouton-secondaire bouton-grand">

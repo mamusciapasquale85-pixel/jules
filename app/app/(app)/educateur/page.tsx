@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { deconnexion } from "@/app/connexion/actions";
+import { PiedCompte } from "@/components/pied-compte";
 import { getProfil } from "@/lib/profil";
 import { Marque } from "@/components/marque";
 
@@ -15,7 +15,7 @@ export default async function Page() {
       </header>
       <div className="contenu">
         {estAdmin && <Link className="bouton" href="/admin">Comptes adultes</Link>}
-        <form action={deconnexion}><button className="bouton bouton-secondaire">Se déconnecter</button></form>
+        <PiedCompte />
       </div>
     </main>
   );
