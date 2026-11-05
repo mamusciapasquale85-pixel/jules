@@ -37,6 +37,9 @@ export default function PageConnexion() {
           <Link href="/connexion/eleve" className="bouton bouton-secondaire bouton-grand">
             Je suis un élève, j&apos;ai un code
           </Link>
+          <Link href="/connexion/demande" style={{ display: "block", textAlign: "center", fontSize: 14, color: "var(--teal-fonce)", marginTop: 14 }}>
+            Prof ou éducateur sans compte ? Demander un compte
+          </Link>
         </div>
       </form>
     </main>

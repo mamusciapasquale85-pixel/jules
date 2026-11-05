@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getProfil } from "@/lib/profil";
 import { Marque } from "@/components/marque";
@@ -16,6 +17,10 @@ export default async function PageCreerProfil({
 
   const supabase = await createClient();
   const { data: classes } = await supabase.from("classes").select("id, nom").order("nom");
+  // RLS : seul un admin voit les demandes ; pour les autres, le compte vaut 0.
+  const { count: demandesEnAttente } = profil.roles.includes("admin")
+    ? await supabase.from("demandes_compte").select("id", { count: "exact", head: true }).eq("statut", "en_attente")
+    : { count: 0 };
   const classeInitiale = classes?.find((c) => c.id === classeParam)?.id ?? classes?.[0]?.id ?? "";
 
   return (
@@ -36,7 +41,12 @@ export default async function PageCreerProfil({
       <section className="contenu" style={{ paddingTop: 0 }}>
         <h2 className="titre-section">Compte prof ou éducateur</h2>
         {profil.roles.includes("admin") ? (
-          <FormulaireAdulte classes={classes ?? []} />
+          <>
+            <Link className="bouton" href="/admin">
+              Demandes de compte en attente ({demandesEnAttente ?? 0})
+            </Link>
+            <FormulaireAdulte classes={classes ?? []} />
+          </>
         ) : (
           <p className="sourdine">Réservé à l’administrateur de l’école.</p>
         )}
