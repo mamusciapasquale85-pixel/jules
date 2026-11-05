@@ -93,3 +93,29 @@ export async function changerAccesAdmin(_prev: EtatDecision, formData: FormData)
   revalidatePath("/admin");
   return { info: donner ? `${adulte.prenom} est maintenant admin.` : `${adulte.prenom} n’est plus admin.` };
 }
+
+/** Remplace la liste des classes d'un prof. Le RLS (ac_admin) vérifie aussi les droits. */
+export async function changerClasses(_prev: EtatDecision, formData: FormData): Promise<EtatDecision> {
+  const profil = await adminConnecte();
+  if (!profil) return { erreur: "Non autorisé." };
+
+  const id = String(formData.get("id") ?? "");
+  const classeIds = [...new Set(formData.getAll("classes").map(String))];
+  const supabase = await createClient();
+
+  if (classeIds.length > 0) {
+    const { data: classes } = await supabase.from("classes").select("id").in("id", classeIds);
+    if (classes?.length !== classeIds.length) return { erreur: "Classe inconnue." };
+  }
+
+  const { error: erreurSuppr } = await supabase.from("adultes_classes").delete().eq("adulte_id", id);
+  if (erreurSuppr) return { erreur: "Modification refusée. Réessaie." };
+  if (classeIds.length > 0) {
+    const { error } = await supabase
+      .from("adultes_classes")
+      .insert(classeIds.map((classe_id) => ({ adulte_id: id, classe_id })));
+    if (error) return { erreur: "Modification refusée. Réessaie." };
+  }
+  revalidatePath("/admin");
+  return { info: classeIds.length > 0 ? `Classes enregistrées (${classeIds.length}).` : "Plus aucune classe." };
+}

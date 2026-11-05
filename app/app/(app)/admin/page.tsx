@@ -13,7 +13,7 @@ export default async function PageAdmin() {
 
   // RLS : l'admin voit toutes les classes et toutes les demandes.
   const supabase = await createClient();
-  const [{ data: classes }, { data: demandes }, { data: equipe }] = await Promise.all([
+  const [{ data: classes }, { data: demandes }, { data: equipe }, { data: liens }] = await Promise.all([
     supabase.from("classes").select("id, nom").order("nom"),
     supabase
       .from("demandes_compte")
@@ -21,7 +21,12 @@ export default async function PageAdmin() {
       .eq("statut", "en_attente")
       .order("created_at"),
     supabase.from("adultes").select("id, prenom, nom, email, roles, actif").order("nom"),
+    supabase.from("adultes_classes").select("adulte_id, classe_id"),
   ]);
+  const membres: MembreEquipe[] = (equipe ?? []).map((a) => ({
+    ...(a as Omit<MembreEquipe, "classeIds">),
+    classeIds: (liens ?? []).filter((l) => l.adulte_id === a.id).map((l) => l.classe_id),
+  }));
 
   return (
     <main className="ecran">
@@ -35,7 +40,7 @@ export default async function PageAdmin() {
         <ListeDemandes demandes={(demandes ?? []) as Demande[]} classes={classes ?? []} />
 
         <h2 className="titre-section" style={{ marginTop: 16 }}>Équipe ({equipe?.length ?? 0})</h2>
-        <ListeEquipe membres={(equipe ?? []) as MembreEquipe[]} moiId={profil.id} />
+        <ListeEquipe membres={membres} moiId={profil.id} classes={classes ?? []} />
 
         <h2 className="titre-section" style={{ marginTop: 16 }}>Créer un compte directement</h2>
         <FormulaireAdulte classes={classes ?? []} />
