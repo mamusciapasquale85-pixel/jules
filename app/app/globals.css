@@ -162,3 +162,10 @@ label.etiquette { display: flex; flex-direction: column; gap: 6px; font-size: 14
   text-decoration: none; color: var(--sourdine); font-size: 12px;
 }
 .nav-bas a[aria-current="page"] { color: var(--teal-fonce); font-weight: 700; }
+
+.onglets { display: flex; background: var(--carte); border-bottom: 1px solid var(--bord); }
+.onglets a {
+  flex: 1; padding: 13px 8px; text-align: center; font-size: 14px; font-weight: 600;
+  color: var(--sourdine); border-bottom: 3px solid transparent; text-decoration: none;
+}
+.onglets a[aria-current="page"] { color: var(--teal-fonce); font-weight: 700; border-bottom-color: var(--teal-fonce); }

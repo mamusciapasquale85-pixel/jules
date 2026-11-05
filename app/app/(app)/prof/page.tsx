@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getProfil } from "@/lib/profil";
 import { deconnexion } from "@/app/connexion/actions";
 import { Marque } from "@/components/marque";
+import { OngletsProf } from "@/components/onglets-prof";
 
 function initiales(prenom: string, nom: string) {
   return `${prenom[0] ?? ""}${nom[0] ?? ""}`.toUpperCase();
@@ -45,6 +46,7 @@ export default async function PageMaClasse({
           <h1 style={{ fontSize: 24 }}>Aucune classe</h1>
           <span className="sous">Demande à l’éducateur de te rattacher à tes classes.</span>
         </header>
+        <OngletsProf actif="classe" />
         <div className="contenu">
           <form action={deconnexion}><button className="bouton bouton-secondaire">Se déconnecter</button></form>
         </div>
@@ -104,6 +106,8 @@ export default async function PageMaClasse({
           )}
         </div>
       </header>
+
+      <OngletsProf actif="classe" classeId={classe.id} />
 
       <div style={{ padding: "14px 20px 0", display: "flex", gap: 8 }}>
         <Link href={`/prof/observation?classe=${classe.id}`} className="bouton" style={{ flex: 1 }}>
