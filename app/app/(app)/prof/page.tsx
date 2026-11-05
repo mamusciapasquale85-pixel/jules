@@ -29,11 +29,14 @@ export default async function PageMaClasse({
   const profil = await getProfil();
   if (!profil || profil.kind !== "adulte") return null;
 
-  // Classes du prof (RLS : seulement les siennes).
-  const { data: classes } = await supabase
-    .from("classes")
-    .select("id, nom, annee")
-    .order("nom");
+  // Classes du prof. Le RLS laisse un admin voir toutes les classes :
+  // on garde celles où il est rattaché, et toutes seulement s'il n'en a aucune.
+  const [{ data: toutes }, { data: liens }] = await Promise.all([
+    supabase.from("classes").select("id, nom, annee").order("nom"),
+    supabase.from("adultes_classes").select("classe_id").eq("adulte_id", profil.id),
+  ]);
+  const miennes = new Set((liens ?? []).map((l) => l.classe_id));
+  const classes = miennes.size > 0 ? (toutes ?? []).filter((c) => miennes.has(c.id)) : toutes;
 
   const classeId = classeParam ?? classes?.[0]?.id ?? null;
   const classe = classes?.find((c) => c.id === classeId) ?? null;
