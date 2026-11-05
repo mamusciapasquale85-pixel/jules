@@ -3,6 +3,7 @@ import { getProfil } from "@/lib/profil";
 import { Marque } from "@/components/marque";
 import { OngletsProf } from "@/components/onglets-prof";
 import FormulaireProfil from "./formulaire";
+import FormulaireAdulte from "./formulaire-adulte";
 
 export default async function PageCreerProfil({
   searchParams,
@@ -32,6 +33,14 @@ export default async function PageCreerProfil({
           <p className="sourdine">Aucune classe : demande à l’éducateur de te rattacher à tes classes.</p>
         </div>
       )}
+      <section className="contenu" style={{ paddingTop: 0 }}>
+        <h2 className="titre-section">Compte prof ou éducateur</h2>
+        {profil.roles.includes("admin") ? (
+          <FormulaireAdulte classes={classes ?? []} />
+        ) : (
+          <p className="sourdine">Réservé à l’administrateur de l’école.</p>
+        )}
+      </section>
     </main>
   );
 }

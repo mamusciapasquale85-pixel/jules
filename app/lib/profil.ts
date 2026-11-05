@@ -43,7 +43,11 @@ export async function getProfil(): Promise<Profil> {
 /** Page d'accueil selon le profil. */
 export function accueilPour(profil: Profil): string {
   if (!profil) return "/connexion";
-  if (profil.kind === "adulte") return profil.roles.includes("educateur") || profil.roles.includes("admin") ? "/educateur" : "/prof";
+  if (profil.kind === "adulte") {
+    if (profil.roles.includes("prof") && !profil.roles.includes("educateur")) return "/prof";
+    if (profil.roles.includes("admin")) return "/admin";
+    return "/educateur";
+  }
   if (profil.kind === "eleve") return "/eleve";
   return "/parent";
 }
