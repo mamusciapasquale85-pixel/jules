@@ -45,8 +45,8 @@ export function accueilPour(profil: Profil): string {
   if (!profil) return "/connexion";
   if (profil.kind === "adulte") {
     if (profil.roles.includes("prof") && !profil.roles.includes("educateur")) return "/prof";
-    if (profil.roles.includes("admin")) return "/admin";
-    return "/educateur";
+    if (profil.roles.includes("educateur")) return "/educateur";
+    return "/admin";
   }
   if (profil.kind === "eleve") return "/eleve";
   return "/parent";

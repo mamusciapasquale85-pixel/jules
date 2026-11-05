@@ -47,6 +47,7 @@ export default async function PageAdmin() {
         {profil.roles.includes("prof") && (
           <Link className="bouton bouton-secondaire" href="/prof">Retour à mes classes</Link>
         )}
+        <Link className="bouton bouton-secondaire" href="/educateur">Tous les élèves</Link>
         <PiedCompte />
       </div>
     </main>
