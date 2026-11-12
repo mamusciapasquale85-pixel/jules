@@ -14,6 +14,7 @@ export default async function PageCreerProfil({
   const { classe: classeParam } = await searchParams;
   const profil = await getProfil();
   if (!profil || profil.kind !== "adulte") return null;
+  const estEducateur = !!profil && profil.kind === "adulte" && (profil.roles.includes("educateur") || profil.roles.includes("admin"));
 
   const supabase = await createClient();
   const { data: classes } = await supabase.from("classes").select("id, nom").order("nom");
@@ -30,7 +31,7 @@ export default async function PageCreerProfil({
         <h1 style={{ fontSize: 24 }}>Créer un profil</h1>
         <span className="sous">Nouvel élève, rattaché à une de tes classes</span>
       </header>
-      <OngletsProf actif="profil" classeId={classeInitiale || undefined} />
+      <OngletsProf actif="profil" classeId={classeInitiale || undefined} educateur={estEducateur} />
       {classes && classes.length > 0 ? (
         <FormulaireProfil classes={classes} classeInitiale={classeInitiale} />
       ) : (

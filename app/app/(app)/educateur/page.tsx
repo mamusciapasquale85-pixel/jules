@@ -48,6 +48,14 @@ function LigneEleve({ e, resume, classe }: { e: Eleve; resume?: Resume; classe?:
         )}
       </span>
       {resume && resume.neg >= 2 && <span className="pastille pastille-neg">À suivre</span>}
+      <Link
+        href={`/educateur/rapport/${e.id}`}
+        className="bouton bouton-secondaire"
+        style={{ height: 36, padding: "0 10px", fontSize: 13, whiteSpace: "nowrap" }}
+        aria-label={`Rapport final de ${e.prenom} ${e.nom}`}
+      >
+        Rapport
+      </Link>
     </div>
   );
 }
@@ -179,7 +187,8 @@ export default async function PageEducateur({
         <p className="sourdine" style={{ marginTop: 8 }}>
           Les codes de connexion sont personnels : ne les montre qu’à l’élève concerné.
         </p>
-        {estAdmin && <Link className="bouton" href="/admin">Comptes adultes</Link>}
+        <Link className="bouton" href="/prof">Noter une observation · Ma classe</Link>
+        {estAdmin && <Link className="bouton bouton-secondaire" href="/admin">Comptes adultes</Link>}
         <PiedCompte />
       </div>
     </main>

@@ -169,3 +169,50 @@ label.etiquette { display: flex; flex-direction: column; gap: 6px; font-size: 14
   color: var(--sourdine); border-bottom: 3px solid transparent; text-decoration: none;
 }
 .onglets a[aria-current="page"] { color: var(--teal-fonce); font-weight: 700; border-bottom-color: var(--teal-fonce); }
+
+/* --- Rapport final par élève --- */
+.rapport { max-width: 900px; }
+.feuille {
+  background: var(--carte); border: 1px solid var(--bord); border-radius: 12px;
+  margin: 16px 20px 24px; padding: 28px 32px;
+  display: flex; flex-direction: column; gap: 20px;
+}
+.feuille h2 { font-size: 15px; letter-spacing: .02em; }
+.feuille-entete { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; border-bottom: 2px solid var(--marine); padding-bottom: 14px; }
+.feuille-identite { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.feuille-identite > div { display: flex; flex-direction: column; gap: 2px; font-size: 14px; }
+.feuille-identite .sourdine { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+.feuille-chiffres { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.chiffre { background: var(--fond); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; font-size: 12px; color: var(--sourdine); }
+.chiffre .grand { font-family: var(--police-titre); font-size: 26px; font-weight: 700; color: var(--encre); }
+.feuille-points { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.feuille-points ul { margin: 6px 0 0; padding-left: 18px; font-size: 13px; }
+.feuille-points li { margin-bottom: 3px; }
+.tableau-bilan { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tableau-bilan th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--sourdine); padding: 6px 8px; border-bottom: 1px solid var(--bord-fort); }
+.tableau-bilan td { padding: 5px 8px; border-bottom: 1px solid var(--bord); vertical-align: middle; }
+.tableau-bilan .ligne-domaine td { background: var(--fond); font-weight: 700; padding-top: 8px; padding-bottom: 8px; }
+.niveau { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.niveau-pas_encore { background: var(--orange-clair); color: var(--orange-fonce); }
+.niveau-en_progres { background: #fff3e0; color: #8a5a00; }
+.niveau-acquis { background: var(--teal-clair); color: var(--teal-fonce); }
+.niveau-exemplaire { background: var(--teal); color: #fff; }
+.feuille-signatures { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 12px; }
+.feuille-signatures > div { border-top: 1px solid var(--bord-fort); padding-top: 6px; height: 64px; font-size: 12px; color: var(--sourdine); }
+
+@media (max-width: 640px) {
+  .feuille { margin: 12px; padding: 18px 16px; }
+  .feuille-identite, .feuille-chiffres { grid-template-columns: 1fr 1fr; }
+  .feuille-points { grid-template-columns: 1fr; }
+}
+
+@media print {
+  @page { size: A4; margin: 14mm; }
+  body { background: #fff; }
+  .sans-impression { display: none !important; }
+  .rapport, .ecran { max-width: none; min-height: 0; }
+  .feuille { border: 0; border-radius: 0; margin: 0; padding: 0; box-shadow: none; }
+  .tableau-bilan { font-size: 11.5px; }
+  .tableau-bilan tbody { break-inside: avoid; }
+  .chiffre, .niveau, .tableau-bilan .ligne-domaine td { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}

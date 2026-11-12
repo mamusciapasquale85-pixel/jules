@@ -33,7 +33,10 @@ export async function creerProfilEleve(_prev: EtatProfil, formData: FormData): P
   }
 
   const profil = await getProfil();
-  if (!profil || profil.kind !== "adulte" || !profil.roles.includes("prof")) {
+  const peutCreer =
+    profil?.kind === "adulte" &&
+    (profil.roles.includes("prof") || profil.roles.includes("educateur") || profil.roles.includes("admin"));
+  if (!profil || profil.kind !== "adulte" || !peutCreer) {
     return { erreur: "Non autorisé." };
   }
 

@@ -28,6 +28,7 @@ export default async function PageMaClasse({
   const supabase = await createClient();
   const profil = await getProfil();
   if (!profil || profil.kind !== "adulte") return null;
+  const estEducateur = profil.roles.includes("educateur") || profil.roles.includes("admin");
 
   // Classes du prof. Le RLS laisse un admin voir toutes les classes :
   // on garde celles où il est rattaché, et toutes seulement s'il n'en a aucune.
@@ -49,7 +50,7 @@ export default async function PageMaClasse({
           <h1 style={{ fontSize: 24 }}>Aucune classe</h1>
           <span className="sous">Demande à l’éducateur de te rattacher à tes classes.</span>
         </header>
-        <OngletsProf actif="classe" />
+        <OngletsProf actif="classe" educateur={estEducateur} />
         <div className="contenu">
           <PiedCompte />
         </div>
@@ -110,7 +111,7 @@ export default async function PageMaClasse({
         </div>
       </header>
 
-      <OngletsProf actif="classe" classeId={classe.id} />
+      <OngletsProf actif="classe" classeId={classe.id} educateur={estEducateur} />
 
       <div style={{ padding: "14px 20px 0", display: "flex", gap: 8 }}>
         <Link href={`/prof/observation?classe=${classe.id}`} className="bouton" style={{ flex: 1 }}>
