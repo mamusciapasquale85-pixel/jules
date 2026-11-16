@@ -129,6 +129,23 @@ label.etiquette { display: flex; flex-direction: column; gap: 6px; font-size: 14
 .pastille-pos { background: var(--aplat); color: var(--teal-fonce); }
 .pastille-neg { background: var(--orange-clair); color: var(--orange-fonce); }
 
+/* --- Validation des observations (éducateur) --- */
+.barre-validation {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  position: sticky; top: 0; z-index: 1;
+  background: var(--fond); padding: 8px 0;
+}
+.ligne-obs {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 10px 12px;
+  background: var(--carte); border: 1px solid var(--bord); border-radius: 12px;
+}
+.ligne-obs input[type="checkbox"], .barre-validation input[type="checkbox"] {
+  width: 20px; height: 20px; flex-shrink: 0; accent-color: var(--teal);
+}
+.ligne-obs > input[type="checkbox"] { margin-top: 2px; }
+.ligne-obs-texte { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
+
 .choix {
   display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 8px 12px;
   border-radius: 10px; background: var(--carte); border: 1px solid var(--bord);
